@@ -1,0 +1,16 @@
+{
+  "name": "@techie-development/trackify.ts",
+  "version": "0.0.3",
+  "peerDependencies": {
+    "@angular/common": "^19.0.0",
+    "@angular/core": "^19.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Techie-Development/Trackify.TS"
+  },
+  "sideEffects": false
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "Trackify": {
+      "projectType": "library",
+      "root": "projects/trackify",
+      "sourceRoot": "projects/trackify/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/trackify/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/trackify/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/trackify/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/trackify/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
