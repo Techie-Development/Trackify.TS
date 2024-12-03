@@ -1,59 +1,74 @@
-# TrackifyTS
+# Trackify Library README
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.0.
+## Overview
 
-## Development server
+The `Tracker` class provides a simple and powerful way to track changes between two states of an object in TypeScript. It can detect changes to properties, including collections, and classify them as `added`, `removed`, or `modified`.
 
-To start a local development server, run:
+This library is particularly useful for detecting differences in objects, implementing change-detection systems, or auditing data changes.
 
-```bash
-ng serve
-```
+---
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Features
 
-## Code scaffolding
+- Track property-level changes between two object states.
+- Handle collections (`Array` types) with `added` and `removed` detection.
+- Add custom comparers for property-specific comparison logic.
+- Include or exclude specific properties from change tracking.
+- Lightweight and easy-to-use API.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Installation
 
 ```bash
-ng generate --help
+npm install @techie-development/trackify.ts
 ```
 
-## Building
+## Usage
 
-To build the project run:
+### Basic Example
 
-```bash
-ng build
+```typescript
+import { Tracker, ChangeType } from "@techie-development/trackify.ts";
+
+interface Person {
+  name: string;
+  age: number;
+  hobbies: string[];
+}
+
+const original: Person = { name: "John", age: 30, hobbies: ["reading", "swimming"] };
+const modified: Person = { name: "John", age: 35, hobbies: ["reading", "cycling"] };
+
+const tracker = new Tracker<Person>(original);
+tracker.update(modified);
+
+const changes = tracker.changes;
+console.log(changes);
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Output:
 
-## Running unit tests
+```json
+[
+  {
+    "property": "age",
+    "previous": 30,
+    "current": 35,
+    "type": "modified"
+  },
+  {
+    "property": "hobbies",
+    "previous": null,
+    "current": "cycling",
+    "type": "added"
+  },
+  {
+    "property": "hobbies",
+    "previous": "swimming",
+    "current": null,
+    "type": "removed"
+  }
+]
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
 ```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
